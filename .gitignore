@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# Virtual Environment
+venv/
+.env
+.venv/
+
+# FastAPI Logs
+logs/
+*.log
+nohup.out
+
+# IDE Configs
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Uvicorn / Gunicorn logs
+gunicorn.log
+gunicorn.access.log
+gunicorn.error.log
+
+# SQLite Database
+*.sqlite3
+*.db
+
+# Environment Variables
+.env
+.env.*
+
+# Pip Dependency Resolver
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Pytest cache
+.cache/
+pytest_cache/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# MacOS and Linux files
+.DS_Store
+*.swp
