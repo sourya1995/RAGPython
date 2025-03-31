@@ -47,3 +47,5 @@ pytest_cache/
 # MacOS and Linux files
 .DS_Store
 *.swp
+
+*.txt

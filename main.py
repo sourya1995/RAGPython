@@ -4,6 +4,8 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 import openai
 import time
+import io
+import shutil
 
 
 app = FastAPI()
@@ -21,14 +23,26 @@ def root():
 
 @app.post("/uploadfile")
 async def upload_file(file: UploadFile):
+    allowed_extensions = ["txt", "pdf"]
+
+    file_extension = file.filename.split(".")[-1]
+    if file_extension not in allowed_extensions:
+        raise HTTPException(status_code=400, detail="Invalid file type")
+    
     folder = "sources"
-    os.makedirs(folder, exist_ok=True)
-    file_location = os.path.join(folder, file.filename)
+    try:
+        os.makedirs(folder, exist_ok=True)
+        file_location = os.path.join(folder, file.filename)
+        file_content = await file.read()
+        with open(file_location, "wb+") as file_object:
+            file_like_object = io.BytesIO(file_content)
+            shutil.copyfileobj(file_like_object, file_object)
 
-    with open(file_location, "wb+") as file_object:
-        file_object.write(await file.read())
-
-    return {"info": "File saved", "filename": file.filename}  # Fixed return statement
+        return {"info": "File saved", "filename": file.filename}  # Fixed return statement
+    except Exception as e:
+        print(f"Error saving file: {e}")
+        raise HTTPException(status_code=500, detail="Error saving file")
+        
 
 @app.post("/ask")
 async def ask_question(question: Question):
