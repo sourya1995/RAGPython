@@ -49,3 +49,4 @@ pytest_cache/
 *.swp
 
 *.txt
+*.pdf
